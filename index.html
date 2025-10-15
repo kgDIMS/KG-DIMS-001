@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>KG^DIMSY — Official Store</title>
-<meta name="description" content="KG^DIMSY — Premium gaming accounts and services. Choose a product, select Palmpay, then confirm payment on WhatsApp." />
+<meta name="description" content="KG^DIMSY — Premium gaming accounts and services. Choose a product, select a payment method, then confirm payment on WhatsApp." />
 <style>
   :root{
     --bg:#08080a; --card:#0f1012; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
@@ -114,7 +114,7 @@
       <section class="hero" aria-labelledby="heroTitle">
         <div class="hero-left">
           <h1 id="heroTitle">KG^DIMSY — Premium Gaming Services</h1>
-          <p class="lead">We provide showcase accounts and premium digital service packages. Choose a product, select Palmpay, then confirm your payment on WhatsApp for verification and delivery.</p>
+          <p class="lead">We provide showcase accounts and premium digital service packages. Choose a product, select a payment method, then confirm your payment on WhatsApp for verification and delivery.</p>
           <div class="cta-row">
             <button id="shopNowBtn" class="btn primary">Shop Now</button>
             <button id="contactNowBtn" class="btn outline">Contact Admin</button>
@@ -154,7 +154,7 @@
 
     <footer class="footer" role="contentinfo">
       <p>Business: KG^DIMSY • Email: <a href="mailto:kgdims0001@gmail.com">kgdims0001@gmail.com</a></p>
-      <p>Contact (WhatsApp / Verification): Palmpay → +234 915 952 9768</p>
+      <p>Contact (WhatsApp / Verification): Palmpay → +234 915 952 9768 • TrueBank → +234 915 388 2605</p>
       <p>DM / Calls (US admin): +1 (737) 615-1139</p>
       <p style="margin-top:8px;color:#777;font-size:12px">© 2025 KG^DIMSY — Official</p>
     </footer>
@@ -186,12 +186,13 @@
           <label>Payment Method</label>
           <select id="paymentMethod" aria-label="Choose payment method">
             <option value="palmpay">Palmpay (Miracle Chika) — 9030516292</option>
+            <option value="truebank">TrueBank (Returned)</option>
           </select>
         </div>
 
         <div id="accountDetails" class="account-details" aria-hidden="true"></div>
 
-        <p class="note"><strong>Important:</strong> After selecting Palmpay, this site will open WhatsApp for manual verification after you press "I've Made My Transfer". The verification number is +234 915 952 9768.</p>
+        <p class="note"><strong>Important:</strong> After selecting a payment method, this site will open WhatsApp for manual verification after you press "I've Made My Transfer". The correct verification numbers are shown in the footer.</p>
 
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
           <button id="transferBtn" class="btn primary" type="button">I’ve Made My Transfer</button>
@@ -216,206 +217,16 @@
 const ADMIN_US_WA = "17376151139";
 // Palmpay verification number (no +)
 const VERIFY_PALMPAY = "2349159529768";
+// TrueBank verification number (no +)
+const VERIFY_TRUEBANK = "2349153882605";
 
-/* Palmpay account details */
+/* Account details */
 const ACCOUNTS = {
   palmpay: {
     label: "Palmpay (primary)",
     accountName: "Miracle Chika",
     accountNumber: "9030516292",
     verifyWA: VERIFY_PALMPAY
-  }
-};
-
-/* Fixed product prices (locked) */
-const PRODUCTS = {
-  proxy: { name: "Proxy (Unlimited Edition)", price: 7000 },
-  headshot: { name: "Headshot-Only Account", price: 6000 }
-};
-
-/* Elements */
-const introPopup = document.getElementById("introPopup");
-const typedArea = document.getElementById("typedArea");
-const continueBtn = document.getElementById("continueBtn");
-const contactBtn = document.getElementById("contactBtn");
-const siteWrap = document.getElementById("siteWrap");
-
-const buyCallBtn = document.getElementById("buyCallBtn");
-const dmBtn = document.getElementById("dmBtn");
-const shopNowBtn = document.getElementById("shopNowBtn");
-const contactNowBtn = document.getElementById("contactNowBtn");
-
-const checkoutModal = document.getElementById("checkoutModal");
-const closeModal = document.getElementById("closeModal");
-const productNameInput = document.getElementById("productName");
-const amountInput = document.getElementById("amountInput");
-const payerNameInput = document.getElementById("payerName");
-const paymentMethodSelect = document.getElementById("paymentMethod");
-const accountDetails = document.getElementById("accountDetails");
-const transferBtn = document.getElementById("transferBtn");
-const dmModalBtn = document.getElementById("dmModalBtn");
-
-const countdownOverlay = document.getElementById("countdownOverlay");
-const countNum = document.getElementById("countNum");
-const countdownMessage = document.getElementById("countdownMessage");
-
-/* ---------- Typed intro ---------- */
-const introLines = [
-  "Welcome to KG^DIMSY — your trusted game marketplace.",
-  "Premium showcase accounts and digital packages for serious players.",
-  "Choose a product, pick Palmpay, then confirm on WhatsApp for verification."
-];
-
-function runTyped(lines, el, charDelay = 22) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.textContent = lines.join(" ");
-    return;
-  }
-  let i = 0, p = 0;
-  function step() {
-    if (i >= lines.length) return;
-    const line = lines[i];
-    if (p <= line.length) {
-      el.textContent = line.slice(0, p);
-      p++;
-      setTimeout(step, charDelay);
-    } else {
-      // move to next line after short pause
-      setTimeout(() => { i++; p = 0; step(); }, 700);
-    }
-  }
-  step();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  runTyped(introLines, typedArea);
-  siteWrap.setAttribute("aria-hidden", "true");
-});
-
-/* ---------- Popup actions ---------- */
-continueBtn.addEventListener("click", () => {
-  introPopup.style.display = "none";
-  siteWrap.setAttribute("aria-hidden", "false");
-  setTimeout(()=>{ document.getElementById("proxyTitle").scrollIntoView({behavior:"smooth"}); }, 120);
-});
-contactBtn.addEventListener("click", () => {
-  // DM US admin for general contact
-  window.open(`https://wa.me/${ADMIN_US_WA}`, "_blank");
-});
-
-/* ---------- Header actions ---------- */
-buyCallBtn?.addEventListener("click", () => openCheckout(PRODUCTS.proxy.name, PRODUCTS.proxy.price));
-dmBtn?.addEventListener("click", () => window.open(`https://wa.me/${ADMIN_US_WA}?text=${encodeURIComponent("Hello Admin, I want the best price.")}`, "_blank"));
-shopNowBtn?.addEventListener("click", () => document.getElementById("products").scrollIntoView({behavior:"smooth"}));
-contactNowBtn?.addEventListener("click", () => window.open(`https://wa.me/${ADMIN_US_WA}`, "_blank"));
-
-/* ---------- Product buttons ---------- */
-document.querySelectorAll('button[data-action="buy"]').forEach(btn => {
-  btn.addEventListener("click", () => {
-    const prodKey = btn.getAttribute("data-product").toLowerCase().includes("proxy") ? "proxy" : "headshot";
-    openCheckout(PRODUCTS[prodKey].name, PRODUCTS[prodKey].price);
-  });
-});
-document.querySelectorAll('.dm').forEach(btn => {
-  btn.addEventListener("click", () => {
-    const prod = btn.getAttribute("data-product") || "product";
-    window.open(`https://wa.me/${ADMIN_US_WA}?text=${encodeURIComponent(`Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`)}`, "_blank");
-  });
-});
-
-/* ---------- Checkout modal logic ---------- */
-function openCheckout(productName, price) {
-  productNameInput.value = productName;
-  amountInput.value = price;          // locked read-only
-  payerNameInput.value = "";
-  paymentMethodSelect.value = "palmpay"; // preselect Palmpay
-  accountDetails.innerHTML = "";
-  accountDetails.classList.remove("visible");
-  // show Palmpay details immediately
-  showSelectedPaymentDetails("palmpay");
-  checkoutModal.setAttribute("aria-hidden", "false");
-  checkoutModal.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-closeModal.addEventListener("click", closeCheckout);
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCheckout(); });
-function closeCheckout() {
-  checkoutModal.setAttribute("aria-hidden", "true");
-  checkoutModal.style.display = "none";
-  document.body.style.overflow = "";
-}
-
-/* Show selected payment method details (Palmpay only) */
-function showSelectedPaymentDetails(key) {
-  const acc = ACCOUNTS[key];
-  if (!acc) return;
-  accountDetails.classList.add("visible");
-  accountDetails.innerHTML = `
-    <strong>${acc.label}</strong>
-    <p style="margin-top:6px">Account name: <strong>${acc.accountName}</strong></p>
-    <p>Account number: <strong>${acc.accountNumber}</strong></p>
-    <p style="margin-top:6px;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted')}">Verification WhatsApp: <strong>${formatPhone(acc.verifyWA)}</strong></p>
-  `;
-}
-
-/* Payment method change (only Palmpay available) */
-paymentMethodSelect.addEventListener("change", () => {
-  const v = paymentMethodSelect.value;
-  if (!v) {
-    accountDetails.classList.remove("visible");
-    accountDetails.innerHTML = "";
-    return;
-  }
-  showSelectedPaymentDetails(v);
-});
-
-/* ---------- Transfer button: countdown then open WhatsApp to Palmpay verification number ---------- */
-transferBtn.addEventListener("click", () => {
-  const method = paymentMethodSelect.value || "palmpay";
-  const acc = ACCOUNTS[method];
-  if (!acc) { alert("Payment method not available."); return; }
-  const payer = payerNameInput.value.trim();
-  if (!payer) { alert("Please enter your payer name used in transfer."); return; }
-
-  const prod = productNameInput.value || "Product";
-  const amount = amountInput.value || "";
-
-  // build message (plain text)
-  const msg = `Hello Admin, I have made a transfer.\nProduct: ${prod}\nAmount: ₦${amount}\nPayment Method: ${acc.label}\nAccount Name: ${acc.accountName}\nAccount Number: ${acc.accountNumber}\nPayer Name: ${payer}\nTransaction ID: [optional]\nI will send my screenshot now.`;
-
-  // 10-second countdown
-  showCountdown(10, `Preparing WhatsApp message for ${formatPhone(acc.verifyWA)}...`, () => {
-    window.open(`https://wa.me/${acc.verifyWA}?text=${encodeURIComponent(msg)}`, "_blank");
-    closeCheckout();
-  });
-});
-
-/* DM from modal */
-dmModalBtn.addEventListener("click", () => {
-  const prod = productNameInput.value || "Product";
-  window.open(`https://wa.me/${ADMIN_US_WA}?text=${encodeURIComponent(`Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`)}`, "_blank");
-  closeCheckout();
-});
-
-/* Countdown UI */
-function showCountdown(seconds, message, onComplete) {
-  countdownMessage.textContent = message || "Preparing WhatsApp confirmation...";
-  let s = seconds;
-  countNum.textContent = s;
-  countdownOverlay.classList.add("active");
-  countdownOverlay.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  const t = setInterval(() => {
-    s--;
-    countNum.textContent = s;
-    if (s <= 0) {
-      clearInterval(t);
-      countdownOverlay.classList.remove("active");
-      countdownOverlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      onComplete && onComplete();
-    }
-  }, 1000);
-}
-
-/* Phone formatting helper */
+  },
+  truebank: {
+    label: "
