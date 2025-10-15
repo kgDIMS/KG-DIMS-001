@@ -1,295 +1,407 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KG^DIMSY Website</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KG^DIMSY — Official Store</title>
+<meta name="description" content="KG^DIMSY — Premium gaming accounts and services. Choose product, pick payment method, confirm on WhatsApp." />
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #1c1c1c;
-    color: #fff;
+  :root{
+    --bg:#08080a; --card:#0f1012; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
+    --glass: rgba(255,255,255,0.04); --text:#e7e7e9;
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
 
-  /* Intro Animation */
-  .intro {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: #111;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+  /* layout */
+  .wrap{max-width:1100px;margin:18px auto;padding:0 18px}
 
-  .intro-text {
-    font-size: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease;
-    text-align: center;
-  }
+  /* intro popup */
+  .popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,2,2,0.96), rgba(2,2,2,0.65));z-index:9999}
+  .popup-card{width:95%;max-width:780px;background:var(--card);padding:24px;border-radius:14px;text-align:center;border:1px solid var(--glass);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+  .logo-svg{width:380px;height:auto;margin:6px auto 12px;display:block}
+  .typed{color:var(--muted);min-height:68px;margin-bottom:16px;font-size:16px}
+  .popup-actions{display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+  .btn{padding:10px 14px;border-radius:10px;background:#141416;border:1px solid rgba(255,255,255,0.06);color:var(--text);font-weight:600}
+  .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#05060a;border:none}
+  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
 
-  .logo {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #00ffff;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 1s ease;
-    margin-top: 20px;
-  }
+  header.site-header{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .logo-small svg{height:46px}
+  .nav-actions{display:flex;gap:8px;align-items:center}
 
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    background: #222;
-    padding: 15px 0;
-    opacity: 0;
-    transition: all 1s ease;
-  }
+  .hero{display:flex;gap:20px;align-items:center;margin-top:20px}
+  .hero-left{flex:1}
+  h1{font-size:28px;font-family:Poppins,Arial;margin-bottom:8px}
+  .lead{color:var(--muted);margin-bottom:12px}
 
-  .navbar a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-  }
+  .search-row{display:flex;gap:12px;margin-top:12px;align-items:center}
+  .search-row input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:#0b0b0d;color:var(--text)}
 
-  /* Main Content */
-  .content {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
+  .coming-soon { margin-top:10px; color:#ffd966; font-weight:600; }
 
-  /* Search Bar */
-  .search-bar {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  .products{margin-top:26px}
+  .cards{display:grid;gap:18px}
+  .card{background:linear-gradient(180deg,#0d0d0f,#0b0b0d);padding:18px;border-radius:12px;border:1px solid var(--glass);display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+  .card h3{margin:0;color:var(--accent2);font-family:Poppins,Arial}
+  .muted{color:var(--muted);font-size:14px}
+  .desc{color:#dfe6ea}
+  .price-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .big-price{font-size:28px;font-weight:800;color:#ffd54a;background:linear-gradient(90deg,rgba(255,213,74,0.06),transparent);padding:8px 12px;border-radius:8px}
+  .old-price{text-decoration:line-through;color:#777}
+  .card-actions{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
 
-  .search-bar input {
-    width: 80%;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: none;
-  }
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999;padding:20px}
+  .modal[aria-hidden="false"]{display:flex}
+  .modal-box{width:100%;max-width:720px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass);box-shadow:0 20px 50px rgba(0,0,0,0.7)}
+  .modal-close{float:right;border:none;background:transparent;color:#bbb;font-size:22px;cursor:pointer}
+  .modal-grid{display:grid;grid-template-columns:1fr;gap:12px}
+  .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+  label{font-size:13px;color:var(--muted)}
+  input[type="text"],input[type="number"],select,textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0d;color:var(--text)}
+  input[readonly]{background:#0a0a0b;color:var(--muted)}
+  .account-details{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:none}
+  .account-details.visible{display:block}
 
-  /* Products */
-  .product {
-    background: #2c2c2c;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
+  .bank-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .bank-item{padding:10px;border-radius:8px;background:#0a0a0c;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+  .bank-item.selected{box-shadow:0 6px 18px rgba(0,0,0,0.6);border:1px solid rgba(0,229,255,0.15);transform:translateY(-2px)}
 
-  .product h2 {
-    margin-top: 0;
-    color: #00ffff;
-  }
+  .transfer-big{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:8px}
+  .transfer-big .btn{padding:12px 16px;border-radius:10px;font-weight:700}
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
 
-  .product p {
-    margin: 5px 0;
-  }
+  /* countdown overlay */
+  .countdown-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.78);z-index:1000;padding:20px}
+  .countdown-overlay.active{display:flex}
+  .count-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+  .count-num{font-size:52px;color:var(--accent1);font-weight:800;margin-top:6px}
 
-  .price {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ff0;
-    margin: 10px 0;
-  }
+  footer.footer{text-align:center;padding:18px;color:var(--muted);font-size:14px;margin-top:28px;border-top:1px solid rgba(255,255,255,0.02)}
 
-  .buy-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: #00ffff;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  /* Bank Options */
-  .bank-options {
-    margin-top: 15px;
-  }
-
-  .bank-option {
-    margin: 10px 0;
-    padding: 10px;
-    background: #111;
-    border-radius: 5px;
-  }
-
-  .bank-option span {
-    display: block;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 20px;
-    background: #222;
-    margin-top: 40px;
-  }
-
+  @media(min-width:820px){ .cards{grid-template-columns:1fr 1fr} .modal-grid{grid-template-columns:1fr 1fr} }
+  :focus{outline:3px solid rgba(0,229,255,0.12)}
+  @media (prefers-reduced-motion: reduce) { .typed { transition:none !important; } }
 </style>
 </head>
 <body>
+  <!-- Intro popup -->
+  <div id="introPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="popup-card" role="document">
+      <svg class="logo-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" role="img">
+        <defs>
+          <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient>
+          <filter id="glo"><feGaussianBlur stdDeviation="3" result="g1"/><feMerge><feMergeNode in="g1"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="100%" height="100%" rx="12" fill="#0b0b0d"/>
+        <text x="28" y="70" font-family="Poppins, Arial" font-size="48" font-weight="700" fill="url(#lg)" filter="url(#glo)">KG<tspan font-size="36">^</tspan>DIMSY<tspan font-size="36">¥</tspan></text>
+      </svg>
 
-<!-- Intro Section -->
-<div class="intro">
-  <div class="intro-text">Welcome to KG^DIMSY</div>
-  <div class="logo">KG^DIMSY</div>
-</div>
+      <div id="typedArea" class="typed" aria-live="polite"></div>
 
-<!-- Navbar -->
-<div class="navbar">
-  <a href="#products">Buy Games</a>
-  <a href="#contact">Contact Admin</a>
-</div>
-
-<!-- Main Content -->
-<div class="content">
-  <!-- Search Bar -->
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search for game or account...">
-  </div>
-
-  <!-- Products -->
-  <div id="products">
-    <!-- Proxy Account -->
-    <div class="product" data-name="proxy">
-      <h2>Proxy Account</h2>
-      <p>Access advanced proxy tools for monitoring and viewing gameplay screens.</p>
-      <p><strong>Note:</strong> Cannot be used to play games directly. View unlimited skins, emotes, and levels.</p>
-      <div class="price">₦8,000 <span style="text-decoration: line-through; color: #ff5555;">₦7,000</span></div>
-
-      <!-- Bank Options -->
-      <div class="bank-options">
-        <div class="bank-option" data-whatsapp="+2349153882605">
-          <span><strong>Kuda Microfinance Bank</strong></span>
-          <span>Account: 2081794843</span>
-          <span>Name: DUMOYE, DESTINY ABDUL QUADRI</span>
-        </div>
-        <div class="bank-option" data-whatsapp="+2349153882605">
-          <span><strong>Moniepoint MFB</strong></span>
-          <span>Account: 9014690789</span>
-          <span>Name: ABDUL QUADRI DESTINY DUMOYE</span>
-        </div>
-        <div class="bank-option" data-whatsapp="+2349159529768">
-          <span><strong>Palmpay</strong></span>
-          <span>Account: 9030516292</span>
-          <span>Name: Miracle Chika</span>
-        </div>
+      <div class="popup-actions">
+        <button id="continueBtn" class="btn primary" aria-label="Continue to Site">Continue to Site</button>
+        <button id="contactBtn" class="btn outline" aria-label="Contact Admin via WhatsApp">Contact Admin (WhatsApp)</button>
       </div>
-
-      <button class="buy-button">I've Made a Transfer</button>
-    </div>
-
-    <!-- Headshot Hack -->
-    <div class="product" data-name="headshot">
-      <h2>Headshot Hack Account</h2>
-      <p>Every shot counts. Experience improved aiming assistance for supported games like Free Fire.</p>
-      <p><strong>Note:</strong> Designed for headshot accuracy only.</p>
-      <div class="price">₦7,000 <span style="text-decoration: line-through; color: #ff5555;">₦6,000</span></div>
-
-      <!-- Bank Options -->
-      <div class="bank-options">
-        <div class="bank-option" data-whatsapp="+2349153882605">
-          <span><strong>Kuda Microfinance Bank</strong></span>
-          <span>Account: 2081794843</span>
-          <span>Name: DUMOYE, DESTINY ABDUL QUADRI</span>
-        </div>
-        <div class="bank-option" data-whatsapp="+2349153882605">
-          <span><strong>Moniepoint MFB</strong></span>
-          <span>Account: 9014690789</span>
-          <span>Name: ABDUL QUADRI DESTINY DUMOYE</span>
-        </div>
-        <div class="bank-option" data-whatsapp="+2349159529768">
-          <span><strong>Palmpay</strong></span>
-          <span>Account: 9030516292</span>
-          <span>Name: Miracle Chika</span>
-        </div>
-      </div>
-
-      <button class="buy-button">I've Made a Transfer</button>
     </div>
   </div>
 
-  <p style="text-align:center; margin-top: 20px;">Currently 2 items available. More games coming soon...</p>
-</div>
+  <!-- Main site -->
+  <div class="wrap" id="siteWrap" aria-hidden="true">
+    <header class="site-header" role="banner">
+      <div class="logo-small" aria-hidden="false">
+        <svg viewBox="0 0 360 72" width="220" height="44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="lg2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient></defs>
+          <rect width="100%" height="100%" rx="8" fill="#0b0b0d"/>
+          <text x="12" y="44" font-family="Poppins, Arial" font-weight="700" font-size="34" fill="url(#lg2)">KG^DIMSY</text>
+        </svg>
+      </div>
 
-<!-- Footer -->
-<footer id="contact">
-  <p>Contact Admin via WhatsApp: <a href="https://wa.me/17376151139" target="_blank">+1 737 615 1139</a></p>
-  <p>Email: kgdims0001@gmail.com</p>
-</footer>
+      <div class="nav-actions">
+        <button id="buyCallBtn" class="btn" aria-label="Open buy modal">Buy</button>
+        <button id="dmBtn" class="btn outline" aria-label="DM admin">DM Admin</button>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-left">
+          <h1 id="heroTitle">KG^DIMSY — Premium Gaming Services</h1>
+          <p class="lead">We provide showcase accounts and premium digital service packages. Choose a product, pick a payment method, then confirm your payment on WhatsApp for verification and delivery.</p>
+
+          <div class="search-row">
+            <input id="searchInput" type="search" placeholder="Search games (e.g. Free Fire, Proxy)...">
+          </div>
+
+          <div class="coming-soon">More games coming soon — Hack mode</div>
+        </div>
+      </section>
+
+      <section class="products" id="products" aria-label="Products">
+        <h2 style="margin:18px 0 12px">Available Services</h2>
+        <div class="cards" id="cardsContainer">
+          <!-- Proxy Unlimited -->
+          <article class="card" aria-labelledby="proxyTitle" data-key="proxy">
+            <h3 id="proxyTitle">Proxy — Unlimited Edition</h3>
+            <p class="muted">Old price: <span class="old-price">₦8,000</span></p>
+            <p class="desc">Showcase account with Level 100 and very large diamond/skin collection. You can view unlimited skins, emotes, and in-game items — <strong>not for playing live matches</strong>. Use view-only/proxy features.</p>
+            <div class="price-row">
+              <div class="big-price">₦7,000</div>
+              <div class="muted">Fixed price — cannot be changed</div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn" data-action="buy" data-product="Proxy (Unlimited Edition)" data-price="7000">Buy Now</button>
+              <button class="btn outline dm" data-product="Proxy (Unlimited Edition)">DM Admin for Better Price</button>
+            </div>
+          </article>
+
+          <!-- Headshot-only -->
+          <article class="card" aria-labelledby="headshotTitle" data-key="headshot">
+            <h3 id="headshotTitle">Headshot-Only Account</h3>
+            <p class="muted">Old price: <span class="old-price">₦7,000</span></p>
+            <p class="desc">Guest-login account tuned for headshot precision and smooth shooting. Designed for headshot features in supported titles (e.g. Free Fire). Delivered after manual verification.</p>
+            <div class="price-row">
+              <div class="big-price">₦6,000</div>
+              <div class="muted">Fixed price — cannot be changed</div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn" data-action="buy" data-product="Headshot-Only Account" data-price="6000">Buy Now</button>
+              <button class="btn outline dm" data-product="Headshot-Only Account">DM Admin for Better Price</button>
+            </div>
+          </article>
+        </div>
+
+        <p style="text-align:center;margin-top:16px;color:var(--muted)">Currently <strong>2 items available</strong>. More games coming soon...</p>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <p>Business: KG^DIMSY • Email: <a href="mailto:kgdims0001@gmail.com">kgdims0001@gmail.com</a></p>
+      <p>Contact (WhatsApp / Verification): Palmpay → +234 915 952 9768 • Kuda/Moniepoint → +234 915 388 2605</p>
+      <p>DM / Calls (US admin): +1 (737) 615-1139</p>
+      <p style="margin-top:8px;color:#777;font-size:12px">© 2025 KG^DIMSY — Official</p>
+    </footer>
+  </div>
+
+  <!-- Checkout Modal (long, full info) -->
+  <div id="checkoutModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-box" role="document" aria-labelledby="checkoutTitle">
+      <button id="closeModal" class="modal-close" aria-label="Close">×</button>
+      <h2 id="checkoutTitle">Checkout</h2>
+
+      <div class="modal-grid">
+        <div>
+          <div class="form-row">
+            <label>Product</label>
+            <input id="productName" type="text" readonly />
+          </div>
+
+          <div class="form-row">
+            <label>Price (₦) — locked</label>
+            <input id="amountInput" type="number" readonly />
+          </div>
+
+          <div class="form-row">
+            <label>Payer name (as used in transfer)</label>
+            <input id="payerName" type="text" placeholder="Your name used during transfer" />
+          </div>
+
+          <div class="form-row">
+            <label>Select Bank (choose where you transfer money)</label>
+            <div class="bank-list" id="bankList">
+              <!-- banks injected by JS -->
+            </div>
+          </div>
+
+          <div class="note">When you press "I've Made My Transfer" the site will start a countdown and then open WhatsApp to the verification number for the selected bank with a prefilled message containing product, price, account and payer name. Do not close this window while waiting.</div>
+        </div>
+
+        <div>
+          <div id="selectedAccount" class="account-details" aria-hidden="true"></div>
+
+          <div class="transfer-big">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-size:13px;color:var(--muted)">Ready to complete transfer?</div>
+              <div id="bigPriceDisplay" style="font-size:22px;font-weight:800;color:#ffd54a"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <button id="transferBtn" class="btn primary">I’ve Made My Transfer</button>
+              <button id="dmModalBtn" class="btn outline">DM Admin for Better Price</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Countdown overlay -->
+  <div id="countdownOverlay" class="countdown-overlay" aria-hidden="true">
+    <div class="count-card" role="status" aria-live="polite">
+      <div id="countdownMessage" style="color:var(--muted)">Preparing WhatsApp confirmation…</div>
+      <div class="count-num" id="countNum">10</div>
+      <p style="color:var(--muted);margin-top:8px">Keep your payment screenshot ready. WhatsApp will open when the countdown finishes.</p>
+    </div>
+  </div>
 
 <script>
+/* ========== Configuration (accounts & products) ========== */
+// US admin (for DM/negotiation)
+const ADMIN_US_WA = "17376151139"; // use without '+'
+
+// Verification numbers (international, no +)
+const VERIFY_PALMPAY = "2349159529768";    // Palmpay -> +234 915 952 9768
+const VERIFY_KUDA_MONIE = "2349153882605"; // Kuda & Moniepoint -> +234 915 388 2605
+
+// Bank account details (displayed in modal)
+const BANKS = [
+  {
+    id: "kuda",
+    label: "Kuda Microfinance Bank",
+    accountName: "DUMOYE, DESTINY ABDUL QUADRI",
+    accountNumber: "2081794843",
+    verifyWA: VERIFY_KUDA_MONIE
+  },
+  {
+    id: "moniepoint",
+    label: "Moniepoint MFB",
+    accountName: "ABDUL QUADRI DESTINY DUMOYE",
+    accountNumber: "9014690789",
+    verifyWA: VERIFY_KUDA_MONIE
+  },
+  {
+    id: "palmpay",
+    label: "Palmpay",
+    accountName: "Miracle Chika",
+    accountNumber: "9030516292",
+    verifyWA: VERIFY_PALMPAY
+  }
+];
+
+// Products (locked prices)
+const PRODUCTS = {
+  proxy: { key: "proxy", name: "Proxy (Unlimited Edition)", price: 7000 },
+  headshot: { key: "headshot", name: "Headshot-Only Account", price: 6000 }
+};
+
+/* ========== Helper selectors ========== */
+const introPopup = document.getElementById("introPopup");
+const typedArea = document.getElementById("typedArea");
+const continueBtn = document.getElementById("continueBtn");
+const contactBtn = document.getElementById("contactBtn");
+const siteWrap = document.getElementById("siteWrap");
+
+const buyButtons = document.querySelectorAll('button[data-action="buy"]');
+const dmButtons = document.querySelectorAll('.dm');
+
+const checkoutModal = document.getElementById("checkoutModal");
+const closeModal = document.getElementById("closeModal");
+const productNameInput = document.getElementById("productName");
+const amountInput = document.getElementById("amountInput");
+const payerNameInput = document.getElementById("payerName");
+const bankListEl = document.getElementById("bankList");
+const selectedAccountEl = document.getElementById("selectedAccount");
+const bigPriceDisplay = document.getElementById("bigPriceDisplay");
+const transferBtn = document.getElementById("transferBtn");
+const dmModalBtn = document.getElementById("dmModalBtn");
+
+const countdownOverlay = document.getElementById("countdownOverlay");
+const countNum = document.getElementById("countNum");
+const countdownMessage = document.getElementById("countdownMessage");
+
+let selectedBankId = null;
+let activeProduct = null;
+
+/* ---------- Intro typed animation ---------- */
+const introLines = [
+  "Welcome to KG^DIMSY — your trusted game marketplace.",
+  "Premium showcase accounts and digital packages for serious players.",
+  "Choose a product, pick a payment method, then confirm your payment on WhatsApp for verification."
+];
+function runTyped(lines, el, charDelay = 22) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = lines.join(" ");
+    return;
+  }
+  let i = 0, p = 0;
+  function step() {
+    if (i >= lines.length) return;
+    const line = lines[i];
+    if (p <= line.length) {
+      el.textContent = line.slice(0, p);
+      p++;
+      setTimeout(step, charDelay);
+    } else {
+      setTimeout(() => { i++; p = 0; step(); }, 700);
+    }
+  }
+  step();
+}
 document.addEventListener("DOMContentLoaded", () => {
-  const intro = document.querySelector(".intro");
-  const introText = document.querySelector(".intro-text");
-  const logo = document.querySelector(".logo");
-  const navbar = document.querySelector(".navbar");
-  const content = document.querySelector(".content");
-
-  if(navbar) navbar.style.opacity = "0";
-  if(content) content.style.opacity = "0";
-
-  // Intro animation
-  setTimeout(() => { if(introText){ introText.style.opacity="1"; introText.style.transform="translateY(0)"; } }, 500);
-  setTimeout(() => { if(logo){ logo.style.opacity="1"; logo.style.transform="scale(1)"; } }, 2000);
-  setTimeout(() => {
-    if(intro) intro.style.display="none";
-    if(navbar) navbar.style.opacity="1";
-    if(content) content.style.opacity="1";
-  }, 4000);
-
-  // Search filter
-  const searchInput = document.getElementById("search");
-  searchInput.addEventListener("input", (e) => {
-    const value = e.target.value.toLowerCase();
-    document.querySelectorAll(".product").forEach(product => {
-      const name = product.dataset.name.toLowerCase();
-      if(name.includes(value)){
-        product.style.display="block";
-      } else {
-        product.style.display="none";
-      }
-    });
-  });
-
-  // Buy button WhatsApp
-  document.querySelectorAll(".buy-button").forEach(button => {
-    button.addEventListener("click", (e) => {
-      const product = e.target.closest(".product");
-      const bankOption = product.querySelector(".bank-option[data-whatsapp]");
-      const whatsappNumber = bankOption.dataset.whatsapp;
-      const priceText = product.querySelector(".price").innerText;
-      const productName = product.querySelector("h2").innerText;
-
-      // Open WhatsApp with pre-filled message
-      const message = encodeURIComponent(`Hello, I have purchased "${productName}" for ${priceText}. Please verify my transfer.`);
-      window.open(`https://wa.me/${whatsappNumber.replace(/\D/g,'')}?text=${message}`, "_blank");
-    });
-  });
-
+  runTyped(introLines, typedArea);
+  siteWrap.setAttribute("aria-hidden", "true");
 });
-</script>
-</body>
-</html>
+
+/* ---------- Popup actions ---------- */
+continueBtn.addEventListener("click", () => {
+  introPopup.style.display = "none";
+  siteWrap.setAttribute("aria-hidden", "false");
+  setTimeout(()=>{ document.querySelector('[data-key="proxy"]').scrollIntoView({behavior:"smooth"}); }, 120);
+});
+contactBtn.addEventListener("click", () => {
+  window.open(`https://wa.me/${ADMIN_US_WA}`, "_blank");
+});
+
+/* ---------- Header actions ---------- */
+document.getElementById("buyCallBtn")?.addEventListener("click", () => openCheckout(PRODUCTS.proxy.name, PRODUCTS.proxy.price));
+document.getElementById("dmBtn")?.addEventListener("click", () => window.open(`https://wa.me/${ADMIN_US_WA}?text=${encodeURIComponent("Hello Admin, I want the best price.")}`, "_blank"));
+document.getElementById("shopNowBtn")?.addEventListener("click", () => document.getElementById("products").scrollIntoView({behavior:"smooth"}));
+document.getElementById("contactNowBtn")?.addEventListener("click", () => window.open(`https://wa.me/${ADMIN_US_WA}`, "_blank"));
+
+/* ---------- Product buy buttons ---------- */
+buyButtons.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    const productName = btn.getAttribute("data-product");
+    const price = btn.getAttribute("data-price");
+    openCheckout(productName, price);
+  });
+});
+dmButtons.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    const prod = btn.getAttribute("data-product") || "product";
+    window.open(`https://wa.me/${ADMIN_US_WA}?text=${encodeURIComponent(`Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`)}`, "_blank");
+  });
+});
+
+/* ---------- Build bank list inside modal ---------- */
+function renderBankList() {
+  bankListEl.innerHTML = "";
+  BANKS.forEach(b => {
+    const div = document.createElement("div");
+    div.className = "bank-item";
+    div.dataset.bank = b.id;
+    div.innerHTML = `<strong>${escapeHtml(b.label)}</strong><div style="font-size:13px;color:var(--muted)">Account: ${escapeHtml(b.accountNumber)} — ${escapeHtml(b.accountName)}</div>`;
+    div.addEventListener("click", () => selectBank(b.id));
+    bankListEl.appendChild(div);
+  });
+}
+
+/* ---------- Open/Close checkout ---------- */
+function openCheckout(productName, price) {
+  activeProduct = productName;
+  productNameInput.value = productName;
+  amountInput.value = price;
+  bigPriceDisplay.textContent = `₦${price}`;
+  payerNameInput.value = "";
+  selectedBankId = null;
+  selectedAccountEl.classList.remove("visible");
+  selectedAccountEl.innerHTML = "";
+  // render bank list and clear selection
+  renderBankList();
+  checkoutModal.setAttribute("aria-hidden", "false");
+  checkoutModal.s
