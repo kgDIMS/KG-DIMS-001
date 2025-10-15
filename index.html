@@ -6,83 +6,81 @@
 <title>KG^DIMS¥ — Demo Store (DHTML)</title>
 <meta name="description" content="KG^DIMS¥ — Demo storefront. Choose a product, select a payment method, then contact admin to complete payment."/>
 <style>
-  /* ---------- Basic Reset & Theme ---------- */
-  :root{
-    --bg:#08080a; --card:#0f0f11; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
-    --glass: rgba(255,255,255,0.03); --text:#e7e7e9;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  button{font-family:inherit;cursor:pointer}
+:root{
+  --bg:#08080a; --card:#0f0f11; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
+  --glass: rgba(255,255,255,0.03); --text:#e7e7e9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
 
-  /* ---------- Container ---------- */
-  .wrap{max-width:1100px;margin:24px auto;padding:0 18px}
+/* ---------- Container ---------- */
+.wrap{max-width:1100px;margin:24px auto;padding:0 18px}
 
-  /* ---------- Popup Intro ---------- */
-  .popup{
-    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(180deg, rgba(2,2,2,0.95), rgba(2,2,2,0.6));z-index:9999;
-  }
-  .popup-card{width:95%;max-width:720px;background:var(--card);padding:22px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
-  .logo-svg{width:360px;height:auto;margin:6px auto 12px;display:block}
-  .typed{color:var(--muted);min-height:64px;margin-bottom:14px;font-size:16px}
-  .popup-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
-  .btn{padding:10px 14px;border-radius:8px;background:#1f1f23;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-  .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#05060a;font-weight:700;border:none}
-  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
+/* ---------- Popup Intro ---------- */
+.popup{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg, rgba(2,2,2,0.95), rgba(2,2,2,0.6));z-index:9999;
+}
+.popup-card{width:95%;max-width:720px;background:var(--card);padding:22px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+.logo-svg{width:360px;height:auto;margin:6px auto 12px;display:block}
+.typed{color:var(--muted);min-height:64px;margin-bottom:14px;font-size:16px}
+.popup-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.btn{padding:10px 14px;border-radius:8px;background:#1f1f23;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+.btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#05060a;font-weight:700;border:none}
+.btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
 
-  /* ---------- Header ---------- */
-  header.site-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
-  .logo-small svg{height:44px}
+/* ---------- Header ---------- */
+header.site-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.logo-small svg{height:44px}
 
-  /* ---------- Hero ---------- */
-  .hero{display:flex;gap:20px;align-items:center;margin-top:20px}
-  .hero-left{flex:1}
-  h1{font-size:28px;font-family:Poppins,Arial;margin-bottom:8px}
-  .lead{color:var(--muted);margin-bottom:14px}
+/* ---------- Hero ---------- */
+.hero{display:flex;gap:20px;align-items:center;margin-top:20px}
+.hero-left{flex:1}
+h1{font-size:28px;font-family:Poppins,Arial;margin-bottom:8px}
+.lead{color:var(--muted);margin-bottom:14px}
 
-  /* ---------- Products ---------- */
-  .products{margin-top:28px}
-  .cards{display:grid;gap:16px}
-  .card{background:linear-gradient(180deg,#0d0d0f,#0b0b0d);padding:14px;border-radius:12px;border:1px solid var(--glass);display:flex;flex-direction:column;gap:8px}
-  .muted{color:var(--muted);font-size:14px}
-  .old-price{text-decoration:line-through;color:#777;margin-right:8px}
-  .new-price{color:var(--accent1);font-weight:700}
-  .card-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+/* ---------- Products ---------- */
+.products{margin-top:28px}
+.cards{display:grid;gap:16px}
+.card{background:linear-gradient(180deg,#0d0d0f,#0b0b0d);padding:14px;border-radius:12px;border:1px solid var(--glass);display:flex;flex-direction:column;gap:8px}
+.muted{color:var(--muted);font-size:14px}
+.old-price{text-decoration:line-through;color:#777;margin-right:8px}
+.new-price{color:var(--accent1);font-weight:700}
+.card-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 
-  /* ---------- Modal (checkout) ---------- */
-  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:20px}
-  .modal[aria-hidden="false"]{display:flex}
-  .modal-content{width:100%;max-width:580px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass)}
-  .modal-close{float:right;border:none;background:transparent;color:#bbb;font-size:22px;cursor:pointer}
-  .form-row{margin-bottom:10px;display:flex;flex-direction:column}
-  label{font-size:13px;color:var(--muted);margin-bottom:6px}
-  input[type="text"],input[type="number"],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0a0a0c;color:var(--text)}
-  .account-details{margin-top:8px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:none}
-  .account-details.visible{display:block}
-  .note{font-size:13px;color:var(--muted);margin-top:8px}
+/* ---------- Modal (checkout) ---------- */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:20px}
+.modal[aria-hidden="false"]{display:flex}
+.modal-content{width:100%;max-width:580px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass)}
+.modal-close{float:right;border:none;background:transparent;color:#bbb;font-size:22px;cursor:pointer}
+.form-row{margin-bottom:10px;display:flex;flex-direction:column}
+label{font-size:13px;color:var(--muted);margin-bottom:6px}
+input[type="text"],input[type="number"],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0a0a0c;color:var(--text)}
+.account-details{margin-top:8px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:none}
+.account-details.visible{display:block}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
 
-  /* ---------- Countdown Overlay ---------- */
-  .countdown-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:100}
-  .countdown-overlay.active{display:flex}
-  .countdown-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
-  .count-num{font-size:46px;color:var(--accent1);font-weight:700;margin-top:6px}
+/* ---------- Countdown Overlay ---------- */
+.countdown-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:100}
+.countdown-overlay.active{display:flex}
+.countdown-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+.count-num{font-size:46px;color:var(--accent1);font-weight:700;margin-top:6px}
 
-  /* ---------- Footer ---------- */
-  footer.footer{text-align:center;padding:18px;color:var(--muted);font-size:14px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.02)}
+/* ---------- Footer ---------- */
+footer.footer{text-align:center;padding:18px;color:var(--muted);font-size:14px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.02)}
 
-  /* ---------- Responsive ---------- */
-  @media(min-width:720px){ .cards{grid-template-columns:1fr 1fr} }
-  :focus{outline:3px solid rgba(0,229,255,0.12)}
-  @media (prefers-reduced-motion: reduce) { .typed { transition:none !important; } }
+/* ---------- Responsive ---------- */
+@media(min-width:720px){ .cards{grid-template-columns:1fr 1fr} }
+:focus{outline:3px solid rgba(0,229,255,0.12)}
+@media (prefers-reduced-motion: reduce) { .typed { transition:none !important; } }
 </style>
 </head>
 <body>
   <!-- Intro popup -->
   <div id="introPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="introTitle">
     <div class="popup-card" role="document">
-      <!-- Inline SVG namescript logo -->
       <svg class="logo-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
         <defs>
           <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient>
@@ -133,7 +131,6 @@
       <section class="products" id="products" aria-label="Products">
         <h2 style="margin:18px 0 12px">Available Services</h2>
         <div class="cards" id="cardsContainer">
-          <!-- Proxy Unlimited -->
           <article class="card" aria-labelledby="proxyTitle">
             <h3 id="proxyTitle">Proxy — Unlimited Edition</h3>
             <p class="muted">Old price: <span class="old-price">₦8,000</span> <span class="new-price">₦7,000</span></p>
@@ -144,7 +141,6 @@
             </div>
           </article>
 
-          <!-- Headshot-only -->
           <article class="card" aria-labelledby="headshotTitle">
             <h3 id="headshotTitle">Headshot-Only Account</h3>
             <p class="muted">Old price: <span class="old-price">₦7,000</span> <span class="new-price">₦6,000</span></p>
@@ -220,12 +216,8 @@
   </div>
 
 <script>
-/* --------- Configuration (EDIT if needed) --------- */
-// Main admin (US) for negotiations / DM
-const ADMIN_WHATSAPP = "17376151139"; // use wa.me/17376151139 (no +)
-const ADMIN_EMAIL = "kgdims0001@gmail.com";
-
-/* Payment-method mapping (labels only; NO account numbers shown in UI for safety) */
+// ------------- CONFIG -------------
+const ADMIN_WHATSAPP = "17376151139";
 const PAYMENT_METHODS = {
   kuda: { label: "Kuda Bank", verificationWA: "2349153882605" },
   moniepoint: { label: "Moniepoint MFB", verificationWA: "2349153882605" },
@@ -233,55 +225,39 @@ const PAYMENT_METHODS = {
   palmpay_alt: { label: "Palmpay (alternate)", verificationWA: "2349159529768" }
 };
 
-/* --------- Simple helpers --------- */
+// ------------- HELPERS -------------
 const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
-function openWA(number, message) {
-  const text = encodeURIComponent(message || "");
-  window.open(`https://wa.me/${number}?text=${text}`, "_blank");
-}
+function openWA(number, message){ window.open(`https://wa.me/${number}?text=${encodeURIComponent(message||"")}`,"_blank"); }
+function formatPhone(p){ return p.replace(/(\d{3})(\d{4})(\d{4})/, '$1 $2 $3'); }
 
-/* --------- Intro typed animation --------- */
+// ------------- TYPED ANIMATION -------------
+const typedArea = $("#typedArea");
 const introLines = [
   "Welcome to KG^DIMS¥ — the official gaming & services store.",
   "Premium digital packages and showcase accounts for serious players.",
   "Choose a product, choose a payment method, then contact admin to complete payment."
 ];
-
-function runTyped(lines, el, charDelay = 22) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.textContent = lines.join(" ");
-    return;
-  }
-  let index = 0, pos = 0, out = "";
-  function step() {
-    if (index >= lines.length) return;
-    const line = lines[index];
-    if (pos <= line.length) {
-      out = line.slice(0, pos);
-      el.textContent = out;
-      pos++;
-      setTimeout(step, charDelay);
-    } else {
-      // pause then go next
-      setTimeout(() => { index++; pos = 0; step(); }, 700);
-    }
+function runTyped(lines, el, charDelay=22){
+  let index=0,pos=0;
+  function step(){
+    if(index>=lines.length) return;
+    const line=lines[index];
+    if(pos<=line.length){ el.textContent=line.slice(0,pos); pos++; setTimeout(step,charDelay);}
+    else { setTimeout(()=>{ index++; pos=0; step(); },700);}
   }
   step();
 }
 
-/* --------- DOM Elements --------- */
+// ------------- DOM ELEMENTS -------------
 const introPopup = $("#introPopup");
-const typedArea = $("#typedArea");
 const continueBtn = $("#continueBtn");
 const contactBtn = $("#contactBtn");
 const siteWrap = $("#siteWrap");
-
 const buyCallBtn = $("#buyCallBtn");
 const dmBtn = $("#dmBtn");
 const shopNowBtn = $("#shopNowBtn");
 const contactNowBtn = $("#contactNowBtn");
-
 const checkoutModal = $("#checkoutModal");
 const closeModal = $("#closeModal");
 const productNameInput = $("#productName");
@@ -291,133 +267,25 @@ const paymentMethodSelect = $("#paymentMethod");
 const accountDetails = $("#accountDetails");
 const transferBtn = $("#transferBtn");
 const dmModalBtn = $("#dmModalBtn");
-
 const countdownOverlay = $("#countdownOverlay");
 const countNum = $("#countNum");
 const countdownMessage = $("#countdownMessage");
 
-/* --------- Run intro on load --------- */
-document.addEventListener("DOMContentLoaded", () => {
-  runTyped(introLines, typedArea);
-  // show site content only after user clicks Continue
-  siteWrap.setAttribute("aria-hidden", "true");
+// ------------- INIT -------------
+document.addEventListener("DOMContentLoaded", ()=>{
+  runTyped(introLines,typedArea);
+  siteWrap.setAttribute("aria-hidden","true");
 });
 
-/* --------- Popup buttons --------- */
-continueBtn.addEventListener("click", () => {
-  introPopup.style.display = "none";
-  siteWrap.setAttribute("aria-hidden", "false");
-  // focus first interactive element
-  setTimeout(()=>{ $("#shopNowBtn").focus(); }, 200);
+// ------------- POPUP BUTTONS -------------
+continueBtn.addEventListener("click",()=>{
+  introPopup.style.display="none";
+  siteWrap.setAttribute("aria-hidden","false");
+  shopNowBtn.focus();
 });
-contactBtn.addEventListener("click", () => {
-  // open DM to main admin (US) for contact
-  openWA(ADMIN_WHATSAPP, `Hello Admin, I want to contact KG^DIMS¥.`);
-});
+contactBtn.addEventListener("click",()=> openWA(ADMIN_WHATSAPP,"Hello Admin, I want to contact KG^DIMS¥."));
 
-/* --------- Header action buttons --------- */
-buyCallBtn?.addEventListener("click", () => openCheckout("Proxy (Unlimited Edition)", 7000));
-dmBtn?.addEventListener("click", () => openWA(ADMIN_WHATSAPP, "Hello Admin, I want the best price."));
-shopNowBtn?.addEventListener("click", () => { document.getElementById("products").scrollIntoView({behavior:"smooth"}); });
-contactNowBtn?.addEventListener("click", () => openWA(ADMIN_WHATSAPP, "Hello Admin, I need help."));
-
-/* --------- Product buttons (Buy / DM) --------- */
-$$('button[data-action="buy"]').forEach(btn => {
-  btn.addEventListener("click", () => {
-    const prod = btn.getAttribute("data-product");
-    const price = btn.getAttribute("data-price");
-    openCheckout(prod, price);
-  });
-});
-$$('.dm').forEach(btn => {
-  btn.addEventListener("click", () => {
-    const prod = btn.getAttribute("data-product") || "product";
-    openWA(ADMIN_WHATSAPP, `Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`);
-  });
-});
-
-/* --------- Checkout modal logic --------- */
-function openCheckout(product, price) {
-  productNameInput.value = product;
-  amountInput.value = price;
-  payerNameInput.value = "";
-  paymentMethodSelect.value = "";
-  accountDetails.innerHTML = "";
-  accountDetails.classList.remove("visible");
-  checkoutModal.setAttribute("aria-hidden", "false");
-  checkoutModal.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-$("#closeModal").addEventListener("click", closeCheckout);
-document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCheckout(); });
-function closeCheckout() {
-  checkoutModal.setAttribute("aria-hidden", "true");
-  checkoutModal.style.display = "none";
-  document.body.style.overflow = "";
-}
-
-/* Show only the selected payment-method info (placeholder message) */
-paymentMethodSelect.addEventListener("change", () => {
-  const v = paymentMethodSelect.value;
-  if (!v || !PAYMENT_METHODS[v]) {
-    accountDetails.classList.remove("visible");
-    accountDetails.innerHTML = "";
-    return;
-  }
-  const method = PAYMENT_METHODS[v];
-  accountDetails.classList.add("visible");
-  accountDetails.innerHTML = `
-    <strong>${method.label}</strong>
-    <p style="margin-top:6px;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted')}">
-      For safety this demo does not display account numbers. After you select this payment method, please DM the admin to receive the exact account details and instructions.
-    </p>
-    <p style="margin-top:6px;font-size:13px;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted')}">
-      Verification WhatsApp: <strong>${formatPhone(method.verificationWA)}</strong>
-    </p>
-  `;
-});
-
-/* --------- Transfer button: countdown then open WhatsApp to verification number --------- */
-transferBtn.addEventListener("click", () => {
-  const methodKey = paymentMethodSelect.value;
-  if (!methodKey || !PAYMENT_METHODS[methodKey]) { alert("Please choose a payment method."); return; }
-  const payer = payerNameInput.value.trim();
-  if (!payer) { alert("Please enter your payer name used in transfer."); return; }
-  const prod = productNameInput.value || "Product";
-  const amount = amountInput.value || "";
-
-  const method = PAYMENT_METHODS[methodKey];
-  // Build message (plain text)
-  const message = `Hello Admin, I have made a transfer.\nProduct: ${prod}\nAmount: ₦${amount}\nPayment Method: ${method.label}\nPaid to: [account details requested via DM]\nPayer Name: ${payer}\nTransaction ID: [optional]\nI will send my screenshot now.`;
-
-  // Start countdown (10 seconds)
-  showCountdown(10, `Preparing WhatsApp message for ${formatPhone(method.verificationWA)}...`, () => {
-    openWA(method.verificationWA, message);
-    closeCheckout();
-  });
-});
-
-/* DM from modal */
-dmModalBtn.addEventListener("click", () => {
-  const prod = productNameInput.value || "Product";
-  openWA(ADMIN_WHATSAPP, `Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`);
-  closeCheckout();
-});
-
-/* Countdown UI */
-function showCountdown(seconds, message, onComplete) {
-  countdownMessage.textContent = message || "Preparing WhatsApp confirmation...";
-  let s = seconds;
-  countNum.textContent = s;
-  countdownOverlay.classList.add("active");
-  countdownOverlay.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  const t = setInterval(() => {
-    s--;
-    countNum.textContent = s;
-    if (s <= 0) {
-      clearInterval(t);
-      countdownOverlay.classList.remove("active");
-      countdownOverlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      onComplete && onComplete
+// ------------- HEADER BUTTONS -------------
+buyCallBtn?.addEventListener("click",()=> openCheckout("Proxy (Unlimited Edition)",7000));
+dmBtn?.addEventListener("click",()=> openWA(ADMIN_WHATSAPP,"Hello Admin, I want the best price."));
+shopNowBtn?.addEventListener("click",()=> document
