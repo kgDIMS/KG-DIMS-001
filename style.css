@@ -1,0 +1,180 @@
+/* ===== STYLE.CSS for KG^DIMS¥ / Proxy Game Shop ===== */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #0b0b0b;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* ===== Animation Section ===== */
+#animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #111, #000);
+}
+
+#welcomeText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #ff0000;
+  text-shadow: 0 0 15px #ff0000;
+  animation: glowText 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 5px #ff0000; }
+  to { text-shadow: 0 0 25px #ff4444; }
+}
+
+/* ===== Homepage Section ===== */
+#homepage {
+  display: none;
+  text-align: center;
+  padding: 40px 10px;
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: #ff1a1a;
+  text-shadow: 0 0 10px #ff0000;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  padding: 10px 25px;
+  background: #ff1a1a;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #ff4d4d;
+  transform: scale(1.05);
+}
+
+/* ===== Products Section ===== */
+#products {
+  display: none;
+  padding: 40px 20px;
+}
+
+.product-card {
+  background: #141414;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+.product-card h2 {
+  color: #ff4d4d;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.price {
+  margin: 10px 0;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.new-price {
+  color: #00ff6a;
+  font-weight: 700;
+}
+
+/* ===== Payment Popup ===== */
+#paymentPopup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popup-box {
+  background: #111;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+
+.payment-option {
+  margin: 10px 0;
+  padding: 10px;
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-option:hover {
+  background: #333;
+}
+
+#transferBtn {
+  background: #ff1a1a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#countdown {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  color: #00ff6a;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  background: #0f0f0f;
+  margin-top: 50px;
+}
+
+footer a {
+  color: #ff4d4d;
+  text-decoration: none;
+}
