@@ -3,72 +3,67 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KG^DIMS¥ — Official Store</title>
-<meta name="description" content="KG^DIMS¥ — Premium Gaming Services. Choose a product, transfer to the account shown at checkout, then confirm on WhatsApp for verification."/>
+<title>KG^DIMS¥ — Demo Store (DHTML)</title>
+<meta name="description" content="KG^DIMS¥ — Demo storefront. Choose a product, select a payment method, then contact admin to complete payment."/>
 <style>
-  /* ---------- Basic / Reset ---------- */
+  /* ---------- Basic Reset & Theme ---------- */
   :root{
-    --bg:#08080a; --card:#0d0d0f; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
-    --glass: rgba(255,255,255,0.03);
-    --text:#e7e7e9;
-    --focus: 3px solid rgba(0,229,255,0.12);
+    --bg:#08080a; --card:#0f0f11; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
+    --glass: rgba(255,255,255,0.03); --text:#e7e7e9;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  button{font-family:inherit}
+  button{font-family:inherit;cursor:pointer}
 
-  /* ---------- Layout ---------- */
+  /* ---------- Container ---------- */
   .wrap{max-width:1100px;margin:24px auto;padding:0 18px}
-  header.site-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
-  .logo-small svg{height:44px}
-  nav .btn{margin-left:8px}
 
-  /* ---------- Buttons ---------- */
-  .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:#1f1f23;border:1px solid rgba(255,255,255,0.06);color:var(--text);cursor:pointer}
+  /* ---------- Popup Intro ---------- */
+  .popup{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg, rgba(2,2,2,0.95), rgba(2,2,2,0.6));z-index:9999;
+  }
+  .popup-card{width:95%;max-width:720px;background:var(--card);padding:22px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+  .logo-svg{width:360px;height:auto;margin:6px auto 12px;display:block}
+  .typed{color:var(--muted);min-height:64px;margin-bottom:14px;font-size:16px}
+  .popup-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
+  .btn{padding:10px 14px;border-radius:8px;background:#1f1f23;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
   .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#05060a;font-weight:700;border:none}
   .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
-  .btn.small{padding:6px 10px;font-size:14px}
+
+  /* ---------- Header ---------- */
+  header.site-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .logo-small svg{height:44px}
 
   /* ---------- Hero ---------- */
   .hero{display:flex;gap:20px;align-items:center;margin-top:20px}
   .hero-left{flex:1}
-  h1{font-size:28px;font-family:"Poppins",sans-serif;margin-bottom:8px}
+  h1{font-size:28px;font-family:Poppins,Arial;margin-bottom:8px}
   .lead{color:var(--muted);margin-bottom:14px}
 
   /* ---------- Products ---------- */
   .products{margin-top:28px}
   .cards{display:grid;gap:16px}
   .card{background:linear-gradient(180deg,#0d0d0f,#0b0b0d);padding:14px;border-radius:12px;border:1px solid var(--glass);display:flex;flex-direction:column;gap:8px}
-  .card h3{margin-bottom:6px}
   .muted{color:var(--muted);font-size:14px}
   .old-price{text-decoration:line-through;color:#777;margin-right:8px}
   .new-price{color:var(--accent1);font-weight:700}
-
-  .card-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .card-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 
   /* ---------- Modal (checkout) ---------- */
-  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60;padding:20px}
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:20px}
   .modal[aria-hidden="false"]{display:flex}
-  .modal-content{width:100%;max-width:560px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass)}
+  .modal-content{width:100%;max-width:580px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass)}
   .modal-close{float:right;border:none;background:transparent;color:#bbb;font-size:22px;cursor:pointer}
   .form-row{margin-bottom:10px;display:flex;flex-direction:column}
   label{font-size:13px;color:var(--muted);margin-bottom:6px}
-  input[type="text"],input[type="number"],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0d;color:var(--text)}
-
+  input[type="text"],input[type="number"],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0a0a0c;color:var(--text)}
   .account-details{margin-top:8px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:none}
   .account-details.visible{display:block}
-
   .note{font-size:13px;color:var(--muted);margin-top:8px}
 
-  /* ---------- Popup welcome ---------- */
-  .popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,2,2,0.95), rgba(2,2,2,0.6));z-index:90}
-  .popup-card{width:95%;max-width:640px;background:var(--card);padding:20px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
-  .logo-wrap{display:flex;justify-content:center;margin-bottom:12px}
-  .typed{color:var(--muted);min-height:56px;margin-bottom:10px}
-  .popup-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
-
-  /* ---------- Countdown overlay ---------- */
+  /* ---------- Countdown Overlay ---------- */
   .countdown-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:100}
   .countdown-overlay.active{display:flex}
   .countdown-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
@@ -77,50 +72,43 @@
   /* ---------- Footer ---------- */
   footer.footer{text-align:center;padding:18px;color:var(--muted);font-size:14px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.02)}
 
-  /* ---------- small responsive ---------- */
+  /* ---------- Responsive ---------- */
   @media(min-width:720px){ .cards{grid-template-columns:1fr 1fr} }
-  /* focus outlines */
-  :focus{outline:var(--focus)}
-  /* reduce motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    .typed { transition:none !important; }
-  }
+  :focus{outline:3px solid rgba(0,229,255,0.12)}
+  @media (prefers-reduced-motion: reduce) { .typed { transition:none !important; } }
 </style>
 </head>
 <body>
-  <!-- ---------- Welcome popup (typed animation) ---------- -->
-  <div id="welcomePopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <!-- Intro popup -->
+  <div id="introPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="introTitle">
     <div class="popup-card" role="document">
-      <div class="logo-wrap" aria-hidden="false">
-        <!-- Inline SVG "namescript" logo -->
-        <svg viewBox="0 0 600 120" width="420" height="84" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KG^DIMS¥ logo">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient>
-            <filter id="glow"><feGaussianBlur stdDeviation="3" result="g1"/><feMerge><feMergeNode in="g1"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <rect width="100%" height="100%" rx="10" fill="#0b0b0d"/>
-          <text x="28" y="68" font-family="Poppins, Arial" font-size="48" font-weight="700" fill="url(#g1)" filter="url(#glow)">KG<tspan font-size="36">^</tspan>DIMS<tspan font-size="36">¥</tspan></text>
-        </svg>
-      </div>
+      <!-- Inline SVG namescript logo -->
+      <svg class="logo-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+        <defs>
+          <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient>
+          <filter id="glo"><feGaussianBlur stdDeviation="3" result="g1"/><feMerge><feMergeNode in="g1"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="100%" height="100%" rx="12" fill="#0b0b0d"/>
+        <text x="28" y="70" font-family="Poppins, Arial" font-size="48" font-weight="700" fill="url(#lg)" filter="url(#glo)">KG<tspan font-size="36">^</tspan>DIMS<tspan font-size="36">¥</tspan></text>
+      </svg>
 
-      <div id="typedText" class="typed" aria-live="polite"></div>
+      <div id="typedArea" class="typed" aria-live="polite"></div>
 
       <div class="popup-actions">
         <button id="continueBtn" class="btn primary" aria-label="Continue to site">Continue to Site</button>
-        <button id="contactBtn" class="btn outline" aria-label="Contact admin via WhatsApp">Contact Admin (WhatsApp)</button>
+        <button id="contactBtn" class="btn outline" aria-label="Contact Admin via WhatsApp">Contact Admin (WhatsApp)</button>
       </div>
     </div>
   </div>
 
-  <!-- ---------- Header ---------- -->
-  <div class="wrap">
+  <!-- Main site -->
+  <div class="wrap" id="siteWrap" aria-hidden="true">
     <header class="site-header" role="banner">
       <div class="logo-small" aria-hidden="false">
-        <!-- small header variant -->
         <svg viewBox="0 0 360 72" width="220" height="44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient></defs>
+          <defs><linearGradient id="lg2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient></defs>
           <rect width="100%" height="100%" rx="8" fill="#0b0b0d"/>
-          <text x="12" y="44" font-family="Poppins, Arial" font-weight="700" font-size="34" fill="url(#g2)">KG^DIMS¥</text>
+          <text x="12" y="44" font-family="Poppins, Arial" font-weight="700" font-size="34" fill="url(#lg2)">KG^DIMS¥</text>
         </svg>
       </div>
 
@@ -130,42 +118,37 @@
       </nav>
     </header>
 
-    <!-- ---------- Hero ---------- -->
-    <main class="main" role="main">
+    <main role="main">
       <section class="hero" aria-labelledby="heroTitle">
         <div class="hero-left">
           <h1 id="heroTitle">KG^DIMS¥ — Premium Gaming Services</h1>
-          <p class="lead">We provide showcase accounts and premium digital service packages. Choose a product, transfer to the account shown at checkout, then confirm your payment on WhatsApp for verification and delivery.</p>
+          <p class="lead">We provide showcase accounts and premium digital service packages. Choose a product, select a payment method, then contact admin to complete payment.</p>
           <div class="cta-row">
             <button id="shopNowBtn" class="btn primary">Shop Now</button>
             <button id="contactNowBtn" class="btn outline">Contact Admin</button>
           </div>
         </div>
-        <div class="hero-right">
-          <div class="image-placeholder"><div class="img-box" style="padding:18px;color:#9aa0a6;text-align:center">No images required — add your image URLs later</div></div>
-        </div>
       </section>
 
-      <!-- ---------- Products ---------- -->
       <section class="products" id="products" aria-label="Products">
         <h2 style="margin:18px 0 12px">Available Services</h2>
         <div class="cards" id="cardsContainer">
-          <!-- Proxy (Unlimited Edition) -->
-          <article class="card" role="article" aria-labelledby="proxyTitle">
+          <!-- Proxy Unlimited -->
+          <article class="card" aria-labelledby="proxyTitle">
             <h3 id="proxyTitle">Proxy — Unlimited Edition</h3>
             <p class="muted">Old price: <span class="old-price">₦8,000</span> <span class="new-price">₦7,000</span></p>
-            <p class="desc">This is a showcase account with <strong>Unlimited Diamonds, Level 100, Unlimited Skins, Unlimited Emotes</strong> and more. <strong>Not intended for live gameplay.</strong> Using it in matches may cause restriction or ban.</p>
+            <p class="desc">Showcase account: Unlimited Diamonds, Level 100, Unlimited Skins, Unlimited Emotes. <strong>Not for live gameplay.</strong></p>
             <div class="card-actions">
               <button class="btn" data-action="buy" data-product="Proxy (Unlimited Edition)" data-price="7000">Buy Now</button>
               <button class="btn outline dm" data-product="Proxy (Unlimited Edition)">DM Admin for Better Price</button>
             </div>
           </article>
 
-          <!-- Headshot-Only -->
-          <article class="card" role="article" aria-labelledby="headshotTitle">
+          <!-- Headshot-only -->
+          <article class="card" aria-labelledby="headshotTitle">
             <h3 id="headshotTitle">Headshot-Only Account</h3>
             <p class="muted">Old price: <span class="old-price">₦7,000</span> <span class="new-price">₦6,000</span></p>
-            <p class="desc">Guest-login account tuned for headshot precision and smooth shooting. Clean account, delivered after manual verification.</p>
+            <p class="desc">Guest-login account tuned for headshot precision and smooth shooting. Delivered after manual verification.</p>
             <div class="card-actions">
               <button class="btn" data-action="buy" data-product="Headshot-Only Account" data-price="6000">Buy Now</button>
               <button class="btn outline dm" data-product="Headshot-Only Account">DM Admin for Better Price</button>
@@ -175,17 +158,15 @@
       </section>
     </main>
 
-    <!-- ---------- Footer ---------- -->
     <footer class="footer" role="contentinfo">
       <p>Business: KG^DIMS¥ • Email: <a href="mailto:kgdims0001@gmail.com">kgdims0001@gmail.com</a></p>
-      <p>Verification WhatsApp (NG): +234 915 388 2605 • Palmpay alt verification: +234 915 952 9768</p>
-      <p>DM / Calls (US admin): +1 (737) 615-1139</p>
-      <p style="margin-top:8px;color:#777;font-size:12px">© 2025 KG^DIMS¥ — All rights reserved.</p>
+      <p>Contact (WhatsApp): <strong>+1 (737) 615-1139</strong></p>
+      <p style="margin-top:8px;color:#777;font-size:12px">© 2025 KG^DIMS¥ — Demo Site</p>
     </footer>
   </div>
 
-  <!-- ---------- Checkout Modal ---------- -->
-  <div id="checkoutModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal" aria-hidden="true">
     <div class="modal-content" role="document">
       <button id="closeModal" class="modal-close" aria-label="Close checkout">×</button>
       <h3 id="checkoutTitle">Checkout</h3>
@@ -193,12 +174,12 @@
       <form id="checkoutForm" onsubmit="return false;">
         <div class="form-row">
           <label>Product</label>
-          <input id="productName" type="text" readonly aria-readonly="true" />
+          <input id="productName" type="text" readonly />
         </div>
 
         <div class="form-row">
           <label>Amount (₦)</label>
-          <input id="amountInput" type="number" min="1" inputmode="numeric" />
+          <input id="amountInput" type="number" min="1" />
         </div>
 
         <div class="form-row">
@@ -219,7 +200,7 @@
 
         <div id="accountDetails" class="account-details" aria-hidden="true"></div>
 
-        <p class="note"><strong>Important:</strong> Transfer the exact amount to the account shown above. After transfer, click <strong>I’ve Made My Transfer</strong> and wait for the confirmation animation. WhatsApp will open next to send your screenshot.</p>
+        <p class="note"><strong>Important:</strong> This demo shows payment flow without exposing real account numbers. After you select a payment method, contact admin on WhatsApp to receive the exact account details and complete transfer.</p>
 
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
           <button id="transferBtn" class="btn primary" type="button">I’ve Made My Transfer</button>
@@ -229,187 +210,228 @@
     </div>
   </div>
 
-  <!-- ---------- Countdown Overlay ---------- -->
+  <!-- Countdown overlay -->
   <div id="countdownOverlay" class="countdown-overlay" aria-hidden="true">
     <div class="countdown-card" role="status" aria-live="polite">
       <div id="countdownMessage" style="color:var(--muted)">Preparing WhatsApp confirmation…</div>
-      <div class="count-num" id="countNum">20</div>
+      <div class="count-num" id="countNum">10</div>
       <p style="color:var(--muted);margin-top:8px">Keep your payment screenshot ready. WhatsApp will open when the countdown finishes.</p>
     </div>
   </div>
 
 <script>
-/* ---------- Configuration (edit here if needed) ---------- */
-const ADMIN_US = "17376151139";           // DM / US admin (wa.me/17376151139)
-const ADMIN_NG_VER = "2349153882605";     // Verification WA for Kuda/Moniepoint/Palmpay primary
-const PALMPAY_ALT_VER = "2349159529768";  // Verification WA for Palmpay alternate
+/* --------- Configuration (EDIT if needed) --------- */
+// Main admin (US) for negotiations / DM
+const ADMIN_WHATSAPP = "17376151139"; // use wa.me/17376151139 (no +)
+const ADMIN_EMAIL = "kgdims0001@gmail.com";
 
-const ACCOUNTS = {
-  kuda: {
-    label: "Kuda Bank",
-    accountName: "DUMOYE, DESTINY ABDUL QUADRI",
-    accountNumber: "2081794843",
-    verNumber: ADMIN_NG_VER
-  },
-  moniepoint: {
-    label: "Moniepoint MFB",
-    accountName: "ABDUL QUADRI DESTINY DUMOYE",
-    accountNumber: "9014690789",
-    verNumber: ADMIN_NG_VER
-  },
-  palmpay: {
-    label: "Palmpay (primary)",
-    accountName: "Miracle Chika",
-    accountNumber: "9030516292",
-    verNumber: ADMIN_NG_VER
-  },
-  palmpay_alt: {
-    label: "Palmpay (alternate)",
-    accountName: "Palmpay alternate",
-    accountNumber: "+234 915 952 9768",
-    verNumber: PALMPAY_ALT_VER
-  }
+/* Payment-method mapping (labels only; NO account numbers shown in UI for safety) */
+const PAYMENT_METHODS = {
+  kuda: { label: "Kuda Bank", verificationWA: "2349153882605" },
+  moniepoint: { label: "Moniepoint MFB", verificationWA: "2349153882605" },
+  palmpay: { label: "Palmpay (primary)", verificationWA: "2349153882605" },
+  palmpay_alt: { label: "Palmpay (alternate)", verificationWA: "2349159529768" }
 };
 
-/* ---------- Elements ---------- */
-const welcomePopup = document.getElementById('welcomePopup');
-const typedTextEl = document.getElementById('typedText');
-const continueBtn = document.getElementById('continueBtn');
-const contactBtn = document.getElementById('contactBtn');
+/* --------- Simple helpers --------- */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+function openWA(number, message) {
+  const text = encodeURIComponent(message || "");
+  window.open(`https://wa.me/${number}?text=${text}`, "_blank");
+}
 
-const buyCallBtn = document.getElementById('buyCallBtn');
-const dmBtn = document.getElementById('dmBtn');
-const shopNowBtn = document.getElementById('shopNowBtn');
-const contactNowBtn = document.getElementById('contactNowBtn');
-
-const checkoutModal = document.getElementById('checkoutModal');
-const closeModal = document.getElementById('closeModal');
-const productNameInput = document.getElementById('productName');
-const amountInput = document.getElementById('amountInput');
-const payerNameInput = document.getElementById('payerName');
-const paymentMethodSelect = document.getElementById('paymentMethod');
-const accountDetails = document.getElementById('accountDetails');
-const transferBtn = document.getElementById('transferBtn');
-const dmModalBtn = document.getElementById('dmModalBtn');
-
-const countdownOverlay = document.getElementById('countdownOverlay');
-const countNum = document.getElementById('countNum');
-const countdownMessage = document.getElementById('countdownMessage');
-
-/* ---------- Typed animation content ---------- */
-const typedLines = [
+/* --------- Intro typed animation --------- */
+const introLines = [
   "Welcome to KG^DIMS¥ — the official gaming & services store.",
-  "Premium digital packages, showcase accounts, and verified services for serious players.",
-  "Choose a product, transfer to the account shown at checkout, then confirm your payment on WhatsApp for verification and delivery."
+  "Premium digital packages and showcase accounts for serious players.",
+  "Choose a product, choose a payment method, then contact admin to complete payment."
 ];
 
-/* Respect reduced-motion */
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------- Typing effect ---------- */
-function runTyped(lines, el, charDelay = 22, pause = 700) {
-  if (reduceMotion) { el.textContent = lines.join(' '); return; }
-  let lineIndex = 0, charIndex = 0, forward = true;
-  function tick() {
-    const current = lines[lineIndex];
-    if (forward) {
-      el.textContent = current.slice(0, charIndex + 1);
-      charIndex++;
-      if (charIndex >= current.length) {
-        forward = false;
-        setTimeout(() => { forward = false; tick(); }, pause);
-        // move to next after pause
-        setTimeout(() => { forward = false; tick(); }, pause);
-        setTimeout(() => {
-          lineIndex = (lineIndex + 1) % lines.length;
-          charIndex = 0;
-          forward = true;
-        }, pause + 30);
-        return;
-      }
-    } else {
-      el.textContent = current.slice(0, charIndex);
-      charIndex--;
-      if (charIndex <= 0) { forward = true; lineIndex = (lineIndex + 1) % lines.length; }
-    }
-    setTimeout(tick, charDelay);
-  }
-  // We'll type each line sequentially (simple approach)
-  let total = lines.join('\n');
-  let pos = 0;
-  el.textContent = '';
-  (function typeAll() {
-    const str = lines.join(' ');
-    if (pos >= str.length) return;
-    el.textContent = str.slice(0, pos+1);
-    pos++;
-    setTimeout(typeAll, charDelay);
-  })();
-}
-
-/* ---------- Popup actions ---------- */
-runTyped(typedLines, typedTextEl);
-
-continueBtn.addEventListener('click', () => {
-  welcomePopup.style.display = 'none';
-});
-contactBtn.addEventListener('click', () => {
-  window.open(`https://wa.me/${ADMIN_US}`, '_blank');
-});
-
-/* ---------- Header actions ---------- */
-buyCallBtn?.addEventListener('click', () => openCheckoutModal('Proxy (Unlimited Edition)', 7000));
-dmBtn?.addEventListener('click', () => window.open(`https://wa.me/${ADMIN_US}`, '_blank'));
-shopNowBtn?.addEventListener('click', () => document.getElementById('products').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'}));
-contactNowBtn?.addEventListener('click', () => window.open(`https://wa.me/${ADMIN_US}`, '_blank'));
-
-/* ---------- Product buttons ---------- */
-document.querySelectorAll('button[data-action="buy"]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const prod = btn.getAttribute('data-product');
-    const price = parseInt(btn.getAttribute('data-price'), 10) || 0;
-    openCheckoutModal(prod, price);
-  });
-});
-document.querySelectorAll('.dm').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const product = btn.getAttribute('data-product') || 'Product';
-    const txt = encodeURIComponent(`Hello Admin, I am interested in ${product}. Please give me the best price and payment details.`);
-    window.open(`https://wa.me/${ADMIN_US}?text=${txt}`, '_blank');
-  });
-});
-
-/* ---------- Checkout modal open/close ---------- */
-function openCheckoutModal(product, price) {
-  productNameInput.value = product;
-  amountInput.value = price;
-  payerNameInput.value = '';
-  paymentMethodSelect.value = '';
-  accountDetails.innerHTML = '';
-  accountDetails.classList.remove('visible');
-  checkoutModal.setAttribute('aria-hidden', 'false');
-  checkoutModal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-closeModal.addEventListener('click', closeCheckout);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheckout(); });
-function closeCheckout() {
-  checkoutModal.setAttribute('aria-hidden', 'true');
-  checkoutModal.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-/* ---------- Payment method selection (show only selected account) ---------- */
-paymentMethodSelect.addEventListener('change', () => {
-  const val = paymentMethodSelect.value;
-  if (!val || !ACCOUNTS[val]) {
-    accountDetails.classList.remove('visible');
-    accountDetails.innerHTML = '';
+function runTyped(lines, el, charDelay = 22) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = lines.join(" ");
     return;
   }
-  const acc = ACCOUNTS[val];
-  accountDetails.classList.add('visible');
+  let index = 0, pos = 0, out = "";
+  function step() {
+    if (index >= lines.length) return;
+    const line = lines[index];
+    if (pos <= line.length) {
+      out = line.slice(0, pos);
+      el.textContent = out;
+      pos++;
+      setTimeout(step, charDelay);
+    } else {
+      // pause then go next
+      setTimeout(() => { index++; pos = 0; step(); }, 700);
+    }
+  }
+  step();
+}
+
+/* --------- DOM Elements --------- */
+const introPopup = $("#introPopup");
+const typedArea = $("#typedArea");
+const continueBtn = $("#continueBtn");
+const contactBtn = $("#contactBtn");
+const siteWrap = $("#siteWrap");
+
+const buyCallBtn = $("#buyCallBtn");
+const dmBtn = $("#dmBtn");
+const shopNowBtn = $("#shopNowBtn");
+const contactNowBtn = $("#contactNowBtn");
+
+const checkoutModal = $("#checkoutModal");
+const closeModal = $("#closeModal");
+const productNameInput = $("#productName");
+const amountInput = $("#amountInput");
+const payerNameInput = $("#payerName");
+const paymentMethodSelect = $("#paymentMethod");
+const accountDetails = $("#accountDetails");
+const transferBtn = $("#transferBtn");
+const dmModalBtn = $("#dmModalBtn");
+
+const countdownOverlay = $("#countdownOverlay");
+const countNum = $("#countNum");
+const countdownMessage = $("#countdownMessage");
+
+/* --------- Run intro on load --------- */
+document.addEventListener("DOMContentLoaded", () => {
+  runTyped(introLines, typedArea);
+  // show site content only after user clicks Continue
+  siteWrap.setAttribute("aria-hidden", "true");
+});
+
+/* --------- Popup buttons --------- */
+continueBtn.addEventListener("click", () => {
+  introPopup.style.display = "none";
+  siteWrap.setAttribute("aria-hidden", "false");
+  // focus first interactive element
+  setTimeout(()=>{ $("#shopNowBtn").focus(); }, 200);
+});
+contactBtn.addEventListener("click", () => {
+  // open DM to main admin (US) for contact
+  openWA(ADMIN_WHATSAPP, `Hello Admin, I want to contact KG^DIMS¥.`);
+});
+
+/* --------- Header action buttons --------- */
+buyCallBtn?.addEventListener("click", () => openCheckout("Proxy (Unlimited Edition)", 7000));
+dmBtn?.addEventListener("click", () => openWA(ADMIN_WHATSAPP, "Hello Admin, I want the best price."));
+shopNowBtn?.addEventListener("click", () => { document.getElementById("products").scrollIntoView({behavior:"smooth"}); });
+contactNowBtn?.addEventListener("click", () => openWA(ADMIN_WHATSAPP, "Hello Admin, I need help."));
+
+/* --------- Product buttons (Buy / DM) --------- */
+$$('button[data-action="buy"]').forEach(btn => {
+  btn.addEventListener("click", () => {
+    const prod = btn.getAttribute("data-product");
+    const price = btn.getAttribute("data-price");
+    openCheckout(prod, price);
+  });
+});
+$$('.dm').forEach(btn => {
+  btn.addEventListener("click", () => {
+    const prod = btn.getAttribute("data-product") || "product";
+    openWA(ADMIN_WHATSAPP, `Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`);
+  });
+});
+
+/* --------- Checkout modal logic --------- */
+function openCheckout(product, price) {
+  productNameInput.value = product;
+  amountInput.value = price;
+  payerNameInput.value = "";
+  paymentMethodSelect.value = "";
+  accountDetails.innerHTML = "";
+  accountDetails.classList.remove("visible");
+  checkoutModal.setAttribute("aria-hidden", "false");
+  checkoutModal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+$("#closeModal").addEventListener("click", closeCheckout);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCheckout(); });
+function closeCheckout() {
+  checkoutModal.setAttribute("aria-hidden", "true");
+  checkoutModal.style.display = "none";
+  document.body.style.overflow = "";
+}
+
+/* Show only the selected payment-method info (placeholder message) */
+paymentMethodSelect.addEventListener("change", () => {
+  const v = paymentMethodSelect.value;
+  if (!v || !PAYMENT_METHODS[v]) {
+    accountDetails.classList.remove("visible");
+    accountDetails.innerHTML = "";
+    return;
+  }
+  const method = PAYMENT_METHODS[v];
+  accountDetails.classList.add("visible");
   accountDetails.innerHTML = `
-    <strong>${acc.label}</strong>
-    <p style="margin-top:6px">Account name: <strong>${acc.accountName}</strong></p>
-    <p>Account / Phone: <strong>${acc.accountNumber}</
+    <strong>${method.label}</strong>
+    <p style="margin-top:6px;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted')}">
+      For safety this demo does not display account numbers. After you select this payment method, please DM the admin to receive the exact account details and instructions.
+    </p>
+    <p style="margin-top:6px;font-size:13px;color:${getComputedStyle(document.documentElement).getPropertyValue('--muted')}">
+      Verification WhatsApp: <strong>${formatPhone(method.verificationWA)}</strong>
+    </p>
+  `;
+});
+
+/* --------- Transfer button: countdown then open WhatsApp to verification number --------- */
+transferBtn.addEventListener("click", () => {
+  const methodKey = paymentMethodSelect.value;
+  if (!methodKey || !PAYMENT_METHODS[methodKey]) { alert("Please choose a payment method."); return; }
+  const payer = payerNameInput.value.trim();
+  if (!payer) { alert("Please enter your payer name used in transfer."); return; }
+  const prod = productNameInput.value || "Product";
+  const amount = amountInput.value || "";
+
+  const method = PAYMENT_METHODS[methodKey];
+  // Build message (plain text)
+  const message = `Hello Admin, I have made a transfer.\nProduct: ${prod}\nAmount: ₦${amount}\nPayment Method: ${method.label}\nPaid to: [account details requested via DM]\nPayer Name: ${payer}\nTransaction ID: [optional]\nI will send my screenshot now.`;
+
+  // Start countdown (10 seconds)
+  showCountdown(10, `Preparing WhatsApp message for ${formatPhone(method.verificationWA)}...`, () => {
+    openWA(method.verificationWA, message);
+    closeCheckout();
+  });
+});
+
+/* DM from modal */
+dmModalBtn.addEventListener("click", () => {
+  const prod = productNameInput.value || "Product";
+  openWA(ADMIN_WHATSAPP, `Hello Admin, I am interested in ${prod}. Please give me the best price and payment details.`);
+  closeCheckout();
+});
+
+/* Countdown UI */
+function showCountdown(seconds, message, onComplete) {
+  countdownMessage.textContent = message || "Preparing WhatsApp confirmation...";
+  let s = seconds;
+  countNum.textContent = s;
+  countdownOverlay.classList.add("active");
+  countdownOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  const t = setInterval(() => {
+    s--;
+    countNum.textContent = s;
+    if (s <= 0) {
+      clearInterval(t);
+      countdownOverlay.classList.remove("active");
+      countdownOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      onComplete && onComplete();
+    }
+  }, 1000);
+}
+
+/* Phone formatting helper */
+function formatPhone(n) {
+  if (!n) return n;
+  if (n.startsWith("234") && n.length === 13) return "+" + n.slice(0,3) + " " + n.slice(3,6) + " " + n.slice(6,9) + " " + n.slice(9);
+  if (n.length === 11) return "+" + n;
+  return n;
+}
+</script>
+</body>
+</html>
