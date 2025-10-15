@@ -1,1 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KG^DIMSY — Premium Gaming Marketplace</title>
+<meta name="description" content="KG^DIMSY — Premium showcase accounts and services. Buy Proxy or Headshot accounts, confirm payment via WhatsApp." />
+<style>
+  :root{
+    --bg:#08080a; --card:#0f1012; --muted:#bfc5cc; --accent1:#00e5ff; --accent2:#b84dff;
+    --glass: rgba(255,255,255,0.03); --text:#e7e7e9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
 
+  .wrap{max-width:1100px;margin:20px auto;padding:0 18px}
+
+  /* Popup intro */
+  .popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,2,2,0.95), rgba(2,2,2,0.6));z-index:9999}
+  .popup-card{width:95%;max-width:720px;background:var(--card);padding:22px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+  .logo-svg{width:360px;height:auto;margin:6px auto 12px;display:block}
+  .typed{color:var(--muted);min-height:64px;margin-bottom:14px;font-size:16px}
+  .popup-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
+  .btn{padding:10px 14px;border-radius:8px;background:#1f1f23;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+  .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#05060a;font-weight:700;border:none}
+  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.08)}
+
+  header.site-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .logo-small svg{height:44px}
+
+  .hero{display:flex;gap:20px;align-items:center;margin-top:20px}
+  .hero-left{flex:1}
+  h1{font-size:28px;font-family:Poppins,Arial;margin-bottom:8px}
+  .lead{color:var(--muted);margin-bottom:14px}
+
+  .coming-soon { margin-top:10px; color:#ffd966; font-weight:600; }
+
+  .products{margin-top:28px}
+  .cards{display:grid;gap:16px}
+  .card{background:linear-gradient(180deg,#0d0d0f,#0b0b0d);padding:14px;border-radius:12px;border:1px solid var(--glass);display:flex;flex-direction:column;gap:8px}
+  .muted{color:var(--muted);font-size:14px}
+  .old-price{text-decoration:line-through;color:#777;margin-right:8px}
+  .new-price{color:var(--accent1);font-weight:700}
+  .card-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+  /* Modal (checkout) */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:20px}
+  .modal[aria-hidden="false"]{display:flex}
+  .modal-content{width:100%;max-width:580px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--glass)}
+  .modal-close{float:right;border:none;background:transparent;color:#bbb;font-size:22px;cursor:pointer}
+  .form-row{margin-bottom:10px;display:flex;flex-direction:column}
+  label{font-size:13px;color:var(--muted);margin-bottom:6px}
+  input[type="text"],input[type="number"],select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0a0a0c;color:var(--text)}
+  input[readonly]{background:#0b0b0d;color:var(--muted)}
+  .account-details{margin-top:8px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);display:none}
+  .account-details.visible{display:block}
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
+
+  /* Countdown */
+  .countdown-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:100}
+  .countdown-overlay.active{display:flex}
+  .countdown-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;border:1px solid var(--glass)}
+  .count-num{font-size:46px;color:var(--accent1);font-weight:700;margin-top:6px}
+
+  footer.footer{text-align:center;padding:18px;color:var(--muted);font-size:14px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.02)}
+
+  @media(min-width:720px){ .cards{grid-template-columns:1fr 1fr} }
+  :focus{outline:3px solid rgba(0,229,255,0.12)}
+  @media (prefers-reduced-motion: reduce) { .typed { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- Intro popup -->
+<div id="introPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+  <div class="popup-card" role="document">
+    <svg class="logo-svg" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+      <defs>
+        <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient>
+      </defs>
+      <rect width="100%" height="100%" rx="12" fill="#0b0b0d"/>
+      <text x="28" y="70" font-family="Poppins, Arial" font-size="48" font-weight="700" fill="url(#lg)">KG<tspan font-size="36">^</tspan>DIMSY<tspan font-size="36">¥</tspan></text>
+    </svg>
+
+    <div id="typedArea" class="typed" aria-live="polite"></div>
+
+    <div class="popup-actions">
+      <button id="continueBtn" class="btn primary" aria-label="Continue to site">Continue to Site</button>
+      <button id="contactBtn" class="btn outline" aria-label="Contact Admin via WhatsApp">Contact Admin (WhatsApp)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main site -->
+<div class="wrap" id="siteWrap" aria-hidden="true">
+  <header class="site-header" role="banner">
+    <div class="logo-small" aria-hidden="false">
+      <svg viewBox="0 0 360 72" width="220" height="44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="lg2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#b84dff"/></linearGradient></defs>
+        <rect width="100%" height="100%" rx="8" fill="#0b0b0d"/>
+        <text x="12" y="44" font-family="Poppins, Arial" font-weight="700" font-size="34" fill="url(#lg2)">KG^DIMSY</text>
+      </svg>
+    </div>
+
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <button id="buyCallBtn" class="btn small" aria-label="Open buy modal">Buy</button>
+      <button id="dmBtn" class="btn small outline" aria-label="DM admin">
